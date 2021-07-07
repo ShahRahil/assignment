@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post View</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0" nonce="szcF44eU"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Rahil Shah</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/new">Add New Post</a>
+            <a class="nav-item nav-link" href="#">Logout</a>
+          </div>
+        </div>
+    </nav>    
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <a href="{% url 'home' %}" class="btn btn-dark my-3">Go Back</a>
+                <div>
+                    <img style="width: 70%" src="{{post.image.url}}" alt="">
+                    
+                </div>
+                <div class="fb-like mt-2" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="large" data-share="false"></div>
+            </div>
+            <div class="col-md-5">
+                <h4 class="my-3">Post by {{post.name}} from {{post.location}}</h4>
+                <p class="my-3">{{post.description}}</p>  
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="content" placeholder="Post comment anonymously" style="width: 80%;">
+                    <input type="submit" value="Post" class="btn btn-dark">
+                </form>
+                <div class="card mt-3">
+                    <div class="card-body">
+                    {% for singlecomment in commentdb %}
+                      <p>{{singlecomment.content}}</p> <hr>
+                    {% endfor %}
+                    </div>
+                  </div>        
+            </div>
+        </div>
+    </div>
+</body>
+</html>
